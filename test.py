@@ -5,9 +5,8 @@ import re
 
 def parse_log_file(log_file_content):
     # Создаем пустой DataFrame для заполнения таблицы
-    columns = ["File_Path", "Test_Name", "Test_Type", "Test_Marks", "External_Id", "Work_Item_Ids", "Error_Line",
-               "Error_Message",
-               "Test_Code", "Cause"]
+    columns = ["Test", "File", "Line", "Error Message", "@report.external_id", "@report.work_item_ids", "Code", "Marks",
+               "Type"]
     data = []
     result_df = pd.DataFrame(data, columns=columns)
 
@@ -58,14 +57,13 @@ def parse_log_file(log_file_content):
                     result_df = pd.concat([result_df, pd.DataFrame({
                         "File_Path": [file_path],
                         "Test_Name": [test_name],
-                        "Test_Type": [test_type],
                         "Test_Marks": [", ".join(marks)],
+                        "Test_Type": [test_type],
                         "External_Id": [external_id],
                         "Work_Item_Ids": [work_item_ids],
                         "Error_Line": [line_number],
                         "Error_Message": [error_message],
-                        "Test_Code": ["\n".join(lines)],
-                        "Cause": [""]
+                        "Test_Code": ["\n".join(lines)]
                     })], ignore_index=True)
         except (json.JSONDecodeError, TypeError, KeyError):
             pass  # Пропускаем строки, которые не являются JSON или имеют неверный формат
