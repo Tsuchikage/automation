@@ -6,7 +6,7 @@ import re
 
 def parse_log_files(log_files):
     # Создаем пустой DataFrame для заполнения таблицы
-    columns = ["Module_Name", "File_Path", "Test_Name", "Test_Type", "Test_Marks", "External_Id", "Work_Item_Ids",
+    columns = ["Module_Name", "File_Path", "Test_Name", "Test_Type", "Test_Marks", "External_Id", "Test_Case",
                "Error_Message",
                "Test_Code", "Cause"]
     data = []
@@ -34,6 +34,7 @@ def parse_log_files(log_files):
 
                         # Разбиваем file_path на части
                         parts = file_path.split("/")
+
                         # Извлекаем имя модуля
                         module_name = parts[1]
 
@@ -72,7 +73,7 @@ def parse_log_files(log_files):
                             "Test_Type": [test_type],
                             "Test_Marks": [", ".join(marks)],
                             "External_Id": [external_id],
-                            "Work_Item_Ids": [work_item_ids],
+                            "Test_Case": [work_item_ids],
                             # "Error_Line": [line_number],
                             "Error_Message": [error_message],
                             "Test_Code": ["\n".join(lines)],
@@ -91,6 +92,6 @@ log_files = [os.path.join("logs", file) for file in os.listdir("logs") if file.e
 result_df = parse_log_files(log_files)
 
 # Сохраняем DataFrame в файл CSV, режим 'a' для добавления данных к существующему файлу
-result_df.to_csv("results.csv", mode='a', index=False, header=not os.path.exists("results.csv"), encoding='utf-8-sig')
+result_df.to_csv("results1.csv", mode='a', index=False, header=not os.path.exists("results1.csv"), encoding='utf-8-sig')
 
 print("Результаты всех лог-файлов сохранены в файл results.csv")
