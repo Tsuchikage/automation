@@ -1,4 +1,4 @@
-# <span style="color:#F0F8FF"> Название проекта - Hahathon </span>
+# <span style="color:#F0F8FF"> Название проекта - Automation </span>
 **Система автоматического анализа упавших автотестов.**
 
 ## <span style="color:#F0F8FF"> Цели и предпосылки </span>
